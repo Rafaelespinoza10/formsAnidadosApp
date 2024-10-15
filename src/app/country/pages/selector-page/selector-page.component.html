@@ -1,0 +1,92 @@
+<div class="bg-gray-900 min-h-screen py-10">
+  <div class="max-w-lg mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-bold text-white mb-4">Busqueda de Paises</h2>
+      <hr class="border-b-2 border-gray-600 mb-6">
+
+      <form [formGroup]="myForm">
+          <!-- continent -->
+          <div>
+              <label class="block text-sm font-medium text-white mb-1">Continente</label>
+              <select type="text"
+                     class="form-input w-full px-3 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500"
+                      formControlName="region"
+                     >
+                     <option value="">-Seleccione Continente-</option>
+                     <option
+                            *ngFor="let region of regions"
+                            [value]="region"
+                            >
+                              {{region}}
+                      </option>
+              </select>
+          </div>
+
+
+          <div *ngIf="countriesByRegion.length > 0">
+            <label class="block text-sm font-medium text-white mt-4 mb-2">Pais</label>
+            <select
+                   class="form-input w-full px-3 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500"
+                     formControlName="country"
+                   >
+                   <option
+                      value="">-Seleccione Pais-</option>
+                   <option
+                          *ngFor="let country of countriesByRegion"
+                          [value]="country.cca3"
+                   >
+                      {{country.name}}
+                    </option>
+            </select>
+        </div>
+
+
+
+        <div  *ngIf="borders.length > 0 ">
+          <label class="block text-sm font-medium text-white mt-4 mb-2">Fronteras </label>
+          <select type="text"
+                 class="form-input w-full px-3 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500"
+                   formControlName="border"
+                 >
+                 <option
+
+                    value="">-Seleccione la frontera -</option>
+                 <option
+                        *ngFor="let country of borders"
+                        [value]="country.cca3"
+                 >
+                    {{ country.name }}
+                  </option>
+          </select>
+      </div>
+
+
+          <!-- Botón Crear -->
+          <div class="flex justify-end mt-4">
+              <button type="submit"
+                      class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">
+                  Crear
+              </button>
+          </div>
+      </form>
+  </div>
+
+
+
+  <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600 mt-14" >
+    <p class="text-md font-semibold mb-2" > {{'informacion de la busqueda  ' | titlecase }}</p>
+    <hr class="border-b-2 border-gray-600 mb-6">
+
+    <h3 class="text-left text-md">
+      <code>
+        {{myForm.value | json}}
+      </code>
+    </h3>
+
+    <p class="text-md font-semibold mt-6 mb-2"> Status del formulario</p>
+    <hr class="border-b-2 border-gray-600 ">
+
+    <p class="mt-2"> Valido:
+      <code>{{myForm.valid}}</code>
+    </p>
+  </div>
+
